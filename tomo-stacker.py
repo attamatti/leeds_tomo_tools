@@ -25,11 +25,12 @@ def getkey(i):
 def parse_filename(infile):
 	'''parse a filename written in the matt tomo rename script format - return a shortened file name (stripped of directory and tilt info/image no) and tilt angle
 	deals with twonaming conventions where decimal in tilt is a _ or a p'''
-	tilt = float('.'.join(infile.split('/')[-1].split('_')[-3:-1]))
+	tilt = '.'.join(infile.split('/')[-1].split('_')[-3:-1])
 	if len(tilt.split('p')) == 2:
 		tilt = float(infile.split('/')[-1].split('_')[-2].replace('p','.'))
 		shortname = '_'.join(infile.split('/')[-1].split('_')[:-3])
 	else:
+		tilt = float('.'.join(infile.split('/')[-1].split('_')[-3:-1]))
 		shortname = '_'.join(infile.split('/')[-1].split('_')[:-4])
 	return(shortname,tilt)
 
