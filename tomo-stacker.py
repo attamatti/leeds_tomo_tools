@@ -5,7 +5,7 @@ import sys
 import os
 import glob
 
-vers = '0.2.1'
+vers = '0.2.2'
 
 def init():
 	'''check that the tilt axis and apix values are numbers - assign the tilt axis and apix variables'''
