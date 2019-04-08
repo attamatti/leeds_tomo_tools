@@ -21,7 +21,7 @@ for i in files:                                             # iterate over the l
     tilt = chunk2[0]                                        # 1st half of that is the tilt
     if tilt == '-0.00':                                     # fix negative 0 tilt
         tilt = '0.00'
-    tilt = tilt.replace('.','p')                            # replace the . with p
+    tilt = tilt.replace('.','_')                            # replace the . with p
     
     rest_of_filename = chunk2[1].strip('-')                 # 2nd half is rest of filename, removing the -
     
