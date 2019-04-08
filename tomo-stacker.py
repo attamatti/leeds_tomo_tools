@@ -5,7 +5,7 @@ import sys
 import os
 import glob
 
-vers = '0.1'
+vers = '0.2'
 
 def init():
 	'''check that the tilt axis and apix values are numbers - assign the tilt axis and apix variables'''
@@ -65,4 +65,5 @@ for i in filesdic:						# operate on each tomogram
 		sortedlist.append(j[1])						# add the filename to the newstack command 
 	sortedlist.append('{0}/{0}.mrc'.format(i))			# add the output file name to the end of the newstack command
 	subprocess.call(sortedlist,stdout=logout)			# run the newstack command, write newstack's output to the logfile
+	subprocess.call(['cp','{0}/{0}.mrc'.format(i),'{0}/{0}.mrc.backup'.format(i)])	# add a backup of the stacked file
 logout.close()							# close the logfile
