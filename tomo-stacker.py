@@ -61,6 +61,7 @@ for i in sys.argv[1:-2]:					# operate on all files 1 at a time
 	put_in_dict(i,shortname,tilt)					# put the file in the dictionary attached to the correct tomo
 print(':: making stacks ::')					# screen output
 print('#images\tname')						# screen output
+finished_files = []						# make a list of finished files **
 for i in filesdic:						# operate on each tomogram
 	print("{0}\t{1}/{1}.mrc".format(len(filesdic[i]),i))		# screen output
 	if os.path.isdir(i) == False:					# check that the output directory exists
@@ -71,5 +72,10 @@ for i in filesdic:						# operate on each tomogram
 		sortedlist.append(j[1])						# add the filename to the newstack command 
 	sortedlist.append('{0}/{0}.mrc'.format(i))			# add the output file name to the end of the newstack command
 	subprocess.call(sortedlist,stdout=logout)			# run the newstack command, write newstack's output to the logfile
-	subprocess.call(['cp','{0}/{0}.mrc'.format(i),'{0}/{0}.mrc.backup'.format(i)])	# add a backup of the stacked file
+	finished_files.append('{0}/{0}.mrc'.format(i))			# add the file to the finished list **
 logout.close()							# close the logfile
+print(':: making backups ::')					# screen output
+for i in finished_files:					# iteratre over the list of finished files **
+	subprocess.call(['cp',i,'{0}.backup'.format(i)])		# make a copy of each
+								# ** did this because there seemed to be a lag between newstack writing the file and
+								# ** it actually appearing causing missed files errors if writing the backups immediately 
