@@ -24,7 +24,7 @@ def getkey(i):
 	
 def parse_filename(infile):
 	'''parse a filename written in the matt tomo rename script format - return a shortened file name (stripped of directory and tilt info/image no) and tilt angle
-	deals with twonaming conventions where decimal in tilt is a _ or a p'''
+	deals with two naming conventions where decimal in tilt is a _ or a p'''
 	tilt = '.'.join(infile.split('/')[-1].split('_')[-3:-1])
 	if len(tilt.split('p')) == 2:
 		tilt = float(infile.split('/')[-1].split('_')[-2].replace('p','.'))
@@ -67,11 +67,11 @@ for i in filesdic:						# operate on each tomogram
 	if os.path.isdir(i) == False:					# check that the output directory exists
 		subprocess.call(['mkdir',i])				# if it doesn't create it
 	files_sorted = sorted(filesdic[i], key=getkey)			# make a list of the subfiles in the tomogram in order by tilt
-	tiltsfile = open('{0}/{0}_tilts.txt'.format(i),'w')			# open a file to write the tilts to
+	tiltsfile = open('{0}/{0}_tilts.rawtilt'.format(i),'w')			# open a file to write the tilts to
 	for j in files_sorted:						# for every file in that list
 		tiltsfile.write('{0}\n'.format(j[0]))			# add the tilt to te tilt file			
 	tiltsfile.close()						# close the tilts file
-	sortedlist = ['newstack','-tilt','{0}/{0}_tilts.txt'.format(i)]					# start building the command that will  go into newstack
+	sortedlist = ['newstack','-tilt','{0}/{0}_tilts.rawtilt'.format(i)]					# start building the command that will  go into newstack
 	for j in files_sorted:						# for every file in that list
 		sortedlist.append(j[1])					# add the filename to the newstack command 
 	sortedlist.append('{0}/{0}.mrc'.format(i))			# add the output file name to the end of the newstack command
