@@ -3,6 +3,7 @@
 # give tomography files from serialEM reasonable names
 
 import os                      # for running UNIX commands
+import sys                      # for lots if utilities
 vers = '0.2.1'                  #version number
 
 if len(sys.argv) < 2:                       # make sure there are files specified
