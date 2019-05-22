@@ -5,7 +5,7 @@ import sys
 import os
 import glob
 
-vers = '0.2.2'
+vers = '0.2.3'
 
 def init():
 	'''check that the tilt axis and apix values are numbers - assign the tilt axis and apix variables'''
@@ -56,9 +56,12 @@ filesdic = {}							# intialize the dictionary to store all the files
 print(':: updating headers ::')					# screen output
 print('tilt\tfile name')					# screen output
 for i in sys.argv[1:-2]:					# operate on all files 1 at a time
-	shortname,tilt = parse_filename(i)				# get the name and tilt for the file
-	update_header(i,tilt,tilt_axis,apix)				# update the file's header
-	put_in_dict(i,shortname)					# put the file in the dictionary attached to the correct tomo
+	try:								# try loop to exclude files that don't fit the naming convention
+		shortname,tilt = parse_filename(i)				# get the name and tilt for the file
+		update_header(i,tilt,tilt_axis,apix)				# update the file's header
+		put_in_dict(i,shortname)					# put the file in the dictionary attached to the correct tomo
+	except:								#exception if the filename can't be read properly
+		print("skipping file {0}: couldn't parse name")		# error message then move on to the next file
 print(':: making stacks ::')					# screen output
 print('#images\tname')						# screen output
 finished_files = []						# make a list of finished files **
@@ -67,11 +70,11 @@ for i in filesdic:						# operate on each tomogram
 	if os.path.isdir(i) == False:					# check that the output directory exists
 		subprocess.call(['mkdir',i])				# if it doesn't create it
 	files_sorted = sorted(filesdic[i], key=getkey)			# make a list of the subfiles in the tomogram in order by tilt
-	tiltsfile = open('{0}/{0}_tilts.rawtilt'.format(i),'w')			# open a file to write the tilts to
+	tiltsfile = open('{0}/{0}.rawtlt'.format(i),'w')			# open a file to write the tilts to
 	for j in files_sorted:						# for every file in that list
 		tiltsfile.write('{0}\n'.format(j[0]))			# add the tilt to te tilt file			
 	tiltsfile.close()						# close the tilts file
-	sortedlist = ['newstack','-tilt','{0}/{0}_tilts.rawtilt'.format(i)]					# start building the command that will  go into newstack
+	sortedlist = ['newstack','-tilt','{0}/{0}.rawtlt'.format(i)]					# start building the command that will  go into newstack
 	for j in files_sorted:						# for every file in that list
 		sortedlist.append(j[1])					# add the filename to the newstack command 
 	sortedlist.append('{0}/{0}.mrc'.format(i))			# add the output file name to the end of the newstack command
