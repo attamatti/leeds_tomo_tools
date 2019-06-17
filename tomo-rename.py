@@ -4,7 +4,7 @@
 
 import os                      # for running UNIX commands
 import sys                      # for lots if utilities
-vers = '0.2.1'                  #version number
+vers = '0.2.2'                  #version number
 
 if len(sys.argv) < 2:                       # make sure there are files specified
     sys.exit('USAGE: tomo-rename <files search string>')    # print help message if not
@@ -35,3 +35,5 @@ for i in files:                                             # iterate over the l
 for i in commands:                                          # iterate over the list of commands
     print(i)                                                # screen barf = remove this line if you want
     os.system(i)                                            # run each
+print('''Stacking complete! If you use these programs to preprocess data used in publications plese cite them in your methods.		
+Iadanza MG. Leeds tomography tools v1.0. https://github.com/leeds_tomo_tools. DOI: 10.5281/zenodo.3247523''')				# citation message
