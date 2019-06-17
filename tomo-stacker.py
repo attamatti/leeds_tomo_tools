@@ -86,3 +86,5 @@ for i in finished_files:					# iteratre over the list of finished files **
 	subprocess.call(['cp',i,'{0}.backup'.format(i)])		# make a copy of each
 								# ** did this because there seemed to be a lag between newstack writing the file and
 								# ** it actually appearing causing missed files errors if writing the backups immediately 
+print('''Stacking complete! If you use these programs to preprocess data used in publications plese cite them in your methods.		
+Iadanza MG. Leeds tomography tools v1.0. https://github.com/leeds_tomo_tools. DOI: 10.5281/zenodo.3247523'')				# citation message
