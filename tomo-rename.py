@@ -36,4 +36,4 @@ for i in commands:                                          # iterate over the l
     print(i)                                                # screen barf = remove this line if you want
     os.system(i)                                            # run each
 print('''Rename complete! If you use these programs to preprocess data used in publications plese cite them in your methods.		
-Iadanza MG. Leeds tomography tools v1.0. https://github.com/leeds_tomo_tools. DOI: 10.5281/zenodo.3247523''')				# citation message
+Iadanza MG. Leeds tomography tools v1.0. https://github.com/attamatti/leeds_tomo_tools. DOI: 10.5281/zenodo.3247523''')				# citation message
