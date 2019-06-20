@@ -29,4 +29,4 @@ needs access to IMOD's alterheader and newstack commands to work
 writes the stacked tomogram and .rawtlt files in a separate directory named for the tomogram.
 
 If you use these programs to preprocess data used in publications plese cite them in your methods.
-Iadanza MG. Leeds tomography tools v1.0. https://github.com/leeds_tomo_tools. DOI: 10.5281/zenodo.3247523
+Iadanza MG. Leeds tomography tools v1.0. https://github.com/attamatti/leeds_tomo_tools. DOI: 10.5281/zenodo.3247523
