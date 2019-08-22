@@ -19,7 +19,20 @@ class Arg(object):
 
 def make_arg(flag, value, req):
     Argument = Arg(flag, value, req)
-    errormsg = "USAGE: tomostacker.py --tilt_axis <tilt axis> --apix <apix> --serialEM <inputfiles search string>\nonly include '--serialEM' for serialEM data"
+    errormsg = """
+USAGE: tomostacker.py <arguments> <inputfiles search string>
+
+::required arguments::
+
+--tilt_axis  <tilt axis>	In degrees
+--apix 	     <apix>		angstroms per pixel
+
+::optional arguments::
+
+--serialEM			add this flag if the data are from serial EM and use its naming convention
+
+"""
+
     if Argument.req == True:
         if Argument.flag not in sys.argv:
             print(errormsg)
@@ -63,12 +76,11 @@ def init():
 	return(tilt_axis,apix,serialEM,nargs)
 
 def getkey(i):
-	'''used for sorting a list of tuples by their 1st item'''
+	'''used for sorting a list of tuples by their 1st item could be replaced with a sort(lambda) function'''
 	return(i[0])
 	
 def parse_filename(infile,serialEM):
-	'''parse a filename written in the matt tomo rename script format - return a shortened file name (stripped of directory and tilt info/image no) and tilt angle
-	deals with two naming conventions where decimal in tilt is a _ or a p'''
+	'''parse a filename written in the matt tomo rename script format - return a shortened file name (stripped of directory and tilt info/image no) and tilt angle'''
 	tilt = '.'.join(infile.split('/')[-1].split('_')[-3:-1])
 	if serialEM == True:
 		tilt = '.'.join('.'.join(infile.split('/')[-1].split('_')[-2:]).split('.')[0:2])
@@ -93,9 +105,9 @@ def put_in_dict(file,shortname):
 	
 ## program
 
-proc = subprocess.Popen('module list', stderr=subprocess.PIPE, shell=True)		# run the module list command 
+proc = subprocess.Popen('module list', stderr=subprocess.PIPE, shell=True)	# run the module list command 
 mods = proc.stderr.read()							# capture its output
-if 'imod' not in mods:								# if imod isn't load
+if 'imod' not in mods:								# if imod isn't loaded
 	sys.exit('ERROR: imod not loaded - load an imod module and try again')	# error out and inform user
 
 subprocess.call(['touch','tomostacker.log'])			# touch the logfile

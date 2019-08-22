@@ -21,10 +21,17 @@ IE:	tomo-rename.py matts_tomos*.mrc
 tomo-stacker.py
 ---------------
 make stacks from individual tomogram images
-USAGE: 	tomo-stacker.py <images search string> <tilt axis angle> <pixel size (A)>
-IE:	tomo-stacker.py matts_tomos*.mrc -4.5 2.13
+USAGE: tomostacker.py <arguments> <inputfiles search string>
 
-must be used on image named with the above convention.
+::required arguments::
+--tilt_axis  <tilt axis>	In degrees
+--apix 	     <apix>		angstroms per pixel
+
+::optional arguments::
+--serialEM			add this flag if the data are from serial EM and use its naming convention
+
+IE:	tomo-stacker.py --tilt_angle -4.5 --apix 4.2 matts_tomos*.mrc 
+
 needs access to IMOD's alterheader and newstack commands to work
 writes the stacked tomogram and .rawtlt files in a separate directory named for the tomogram.
 
