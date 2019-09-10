@@ -77,7 +77,7 @@ def init():
 
 def getkey(i):
 	'''used for sorting a list of tuples by their 1st item could be replaced with a sort(lambda) function'''
-	return(i[0])
+	return(float(i[0]))
 	
 def parse_filename(infile,serialEM):
 	'''parse a filename written in the matt tomo rename script format - return a shortened file name (stripped of directory and tilt info/image no) and tilt angle'''
@@ -135,7 +135,7 @@ for i in filesdic:						# operate on each tomogram
 	files_sorted = sorted(filesdic[i], key=getkey)			# make a list of the subfiles in the tomogram in order by tilt
 	tiltsfile = open('{0}/{0}.rawtlt'.format(i),'w')			# open a file to write the tilts to
 	for j in files_sorted:						# for every file in that list
-		tiltsfile.write('{0}\n'.format(j[0]))			# add the tilt to te tilt file			
+		tiltsfile.write('{0}\n'.format(j[0]))			# add the tilt to the tilt file			
 	tiltsfile.close()						# close the tilts file
 	sortedlist = ['newstack','-tilt','{0}/{0}.rawtlt'.format(i)]					# start building the command that will  go into newstack
 	for j in files_sorted:						# for every file in that list
